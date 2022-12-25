@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ADVA_Test.Models.Department>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>List of Department</h2>
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-danger">
+        <strong> Error! </strong>@TempData["AlertMessage"]
+    </div>
+}
+<p>
+    @Html.ActionLink("Create Department", "Create", null,null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+
+        <th>
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.DeptID }, new { @class = "btn btn-success" })
+                @Html.ActionLink("View Employee", "GetEmployeesbyDepartment", "Employees", new { id = item.DeptID }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.DeptID }, new { @class = "btn btn-danger", onClick = "return confirm('are you sure to delete " + item.Name + "')" })
+            </td>
+        </tr>
+    }
+</table>
